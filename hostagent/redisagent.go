@@ -1,9 +1,6 @@
 package main
 
 import (
-	// standard
-	"fmt"
-
 	// external
 	"github.com/garyburd/redigo/redis"
 )
@@ -35,7 +32,6 @@ func newRedisStorageAgent(host string, port string, ident string, ttl int) (*Red
 }
 
 func (self *RedisStorageAgent) Process(data string) error {
-	fmt.Printf("%s: %s\n", self.ident, data)
 	// store data
 	_, err := self.rconn.Do("SET", self.ident, data)
 	if err != nil {
