@@ -5,7 +5,7 @@ import (
 	"flag"
 	// "fmt"
 	"encoding/json"
-	"os"
+	// "os"
 	"time"
 
 	// local
@@ -20,6 +20,7 @@ var (
 	port     string
 	address  string
 	interval int
+	identity string
 
 	storage StorageAgent
 )
@@ -28,6 +29,7 @@ func init() {
 	flag.StringVar(&address, "address", "redis", "address to redis server")
 	flag.StringVar(&port, "port", "6379", "redis port")
 	flag.IntVar(&interval, "interval", 3, "update interval")
+	flag.StringVar(&identity, "identity", "unnamedAgent", "agent identity")
 	flag.Parse()
 }
 
@@ -40,18 +42,14 @@ func main() {
 	client = localclient
 
 	// build storage agent
-	hostname, err := os.Hostname()
-	if err != nil {
-		panic(err)
-	}
-	storage, err = newRedisStorageAgent(address, port, hostname, interval+5)
+	storage, err = newRedisStorageAgent(address, port, identity, interval+5)
 	if err != nil {
 		panic(err)
 	}
 
 	for {
 		hostdata := hostutil.Host{}
-		hostdata.Hostname = hostname
+		hostdata.Hostname = identity
 
 		docker, err := check_docker()
 		if err != nil {
