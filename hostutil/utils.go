@@ -7,10 +7,12 @@ type ContainerNet struct {
 }
 
 type Container struct {
-	Name   string         `json:"Name"`
-	Image  string         `json:"Image"`
-	Status string         `json:"Status"`
-	Ports  []ContainerNet `json:"Ports"`
+	Name    string         `json:"Name"`
+	Image   string         `json:"Image"`
+	Status  string         `json:"Status"`
+	Created string         `json:"Created"`
+	Ports   []ContainerNet `json:"Ports"`
+	Env     []string       `json:"Env"`
 }
 
 type DockerList struct {

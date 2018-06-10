@@ -32,11 +32,8 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
-                  <!--<li class="active"><a href="#">Home</a></li>-->
-                <!--<li><a href="#about">About</a></li>-->
-                <!--<li><a href="#contact">Contact</a></li>-->
               </ul>
-            </div><!--/.nav-collapse -->
+            </div>
           </div>
         </nav>
 
@@ -45,16 +42,31 @@
       <div class="jumbotron">
 
       {{ range .Hosts }}
-      <h1><b>{{ .Hostname }}</b></h1><br/>
-        <h2>Containers</h2><br/>
+      <div class="panel panel-default">
+          <div class="panel-heading"><b><h1>{{.Hostname}}</h1></b></div>
+        <!-- <h2>Containers</h2> -->
         {{ range .Containers }}
-            Name: {{ .Name }} <br/>
-            Image: {{ .Image }} <br/>
-            Status: {{ .Status }} <br/>
-            {{ range .Ports }} <br/>
-                {{ .NetType }} {{ .IPAddr }}:{{ .Port}}<br/>
+            <ul class="list-group">
+                <li class="list-group-item"><b>Name:</b> {{ .Name }} <b>Image:</b> {{ .Image }} <b>Created:</b> {{ .Created }}
+                {{ if eq .Status "running" }}
+                <span class="label label-success">Status: {{ .Status }}</span>
+                {{ else }}
+                <span class="label label-danger">Status: {{ .Status }}</span>
+                {{ end }}</li>
+                <li class="list-group-item"><b>Network:</b></li>
+            {{ range .Ports }}
+            <li class="list-group-item">{{ .NetType }} {{ .IPAddr }}:{{ .Port}}</li>
             {{ end }}
+                <li class="list-group-item"><b>Environment:</b></li>
+                {{ range .Env }}
+                    <li class="list-group-item"> {{ . }} </li>
+
+                {{ end }}
+
+
+            </ul>
         {{ end }}
+      </div>
       {{ end }}
 
       </div>
