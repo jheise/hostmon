@@ -43,8 +43,12 @@
 
       {{ range .Hosts }}
       <div class="panel panel-default">
-          <div class="panel-heading"><b><h1>{{.Hostname}}</h1></b></div>
+          <div class="panel-heading">
+              <b><h2>{{.Hostname}}</h2></b>
+              <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span>
+          </div>
         <!-- <h2>Containers</h2> -->
+        <div class="panel-body panel-collapsed collapse">
         {{ range .Containers }}
             <ul class="list-group">
                 <li class="list-group-item"><b>Name:</b> {{ .Name }} <b>Image:</b> {{ .Image }} <b>Created:</b> {{ .Created }}
@@ -66,6 +70,7 @@
 
             </ul>
         {{ end }}
+        </div>
       </div>
       {{ end }}
 
@@ -76,6 +81,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="static/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).on('click', '.panel-heading span.clickable', function(e){
+    var $this = $(this);
+	if(!$this.hasClass('panel-collapsed')) {
+		$this.parents('.panel').find('.panel-body').slideUp();
+		$this.addClass('panel-collapsed');
+		$this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+	} else {
+		$this.parents('.panel').find('.panel-body').slideDown();
+		$this.removeClass('panel-collapsed');
+		$this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+	}
+})
+    </script>
   </body>
 </html>
 

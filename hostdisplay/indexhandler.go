@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/http"
+	"sort"
 
 	// local
 	"github.com/jheise/hostmon/hostutil"
@@ -26,6 +27,8 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+	// sort keys
+	sort.Strings(keys)
 
 	// hosts := []hostutil.DockerList{}
 	hosts := []hostutil.Host{}
