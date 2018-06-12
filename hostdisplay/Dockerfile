@@ -10,4 +10,4 @@ ENV REDISADDR redis
 ENV REDISPORT 6379
 EXPOSE ${PORT}
 WORKDIR /srv
-CMD /go/bin/hostdiplay -address ${ADDRESS} -port ${PORT} -redisaddr ${REDISADDR} -redisport ${REDISPORT} 
+CMD /go/bin/hostdisplay -address ${ADDRESS} -port ${PORT} -redisaddr ${REDISADDR} -redisport ${REDISPORT} 
