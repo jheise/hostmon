@@ -15,6 +15,8 @@ var (
 	port      string
 	redisaddr string
 	redisport string
+	templates string
+	static    string
 )
 
 func init() {
@@ -22,6 +24,8 @@ func init() {
 	flag.StringVar(&port, "port", "9999", "port to bind to")
 	flag.StringVar(&redisaddr, "redisaddr", "redis", "redis host to connect to")
 	flag.StringVar(&redisport, "redisport", "6379", "redis port to use")
+	flag.StringVar(&templates, "templates", "templates", "path to templates")
+	flag.StringVar(&static, "static", "static", "path to static files")
 	flag.Parse()
 }
 
@@ -29,7 +33,7 @@ func main() {
 	router := mux.NewRouter()
 
 	// handle static requests
-	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(static))))
 
 	// handle index
 	router.HandleFunc("/", IndexHandler).Methods("GET")

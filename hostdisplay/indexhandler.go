@@ -48,7 +48,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	hostdata := HostMonData{hosts}
 
 	// load template and return html
-	template_bytes, err := ioutil.ReadFile("templates/hostmon.template")
+	template_bytes, err := ioutil.ReadFile(templates + "/hostmon.template")
 	if err != nil {
 		panic(err)
 	}
