@@ -4,8 +4,8 @@ FROM jheise/ubuntu-golang
 # ADD *.go /go/src/hostagent/
 RUN go get github.com/jheise/hostmon/hostdisplay
 RUN go install github.com/jheise/hostmon/hostdisplay
-COPY  templates /srv
-COPY static /srv
+COPY  templates/ /srv
+COPY static/ /srv
 ENV ADDRESS 0.0.0.0
 ENV PORT 9999
 ENV REDISADDR redis
